@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'main/css/index.css'%}">
+</head>
+<body>
+    <div class="header">
+        <h1>ИНФОРМАЦИЯ О ПОЛЬЗОВАТЕЛЯХ САЙТА</h1>
+    </div>
+    <div class="nav">
+        <form action="" method="post">
+            {% csrf_token %}
+            <button name="btn" value="1">Добавить</button>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button name="btn" value="2">Список</button>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button name="btn" value="3">Информация</button>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button name="btn" value="4">Изменить</button>
+        </form>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button name="btn" value="5">Удалить</button>
+        </form>
+
+    </div>
+    <div class="content">
+        {% if menu == '1' %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <span>ИМЯ:</span><input name="name">
+                <span>ЛОГИН:</span><input name="login">
+                <span>ПАРОЛЬ:</span><input name="passw">
+                <button name="method" value="add">ДОБАВИТЬ</button>
+            </form>
+        {% elif menu == '2' %}
+            {{table | safe}}
+
+        {% elif menu == '3' %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <span>Введите ID</span><input name="id">
+                <button name="method" value="read">ИСКАТЬ</button>
+            </form>
+            {{table | safe}}
+        {% elif menu == '4' %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <span>Введите ID</span><input name="id">
+                <button name="method" value="find">ИСКАТЬ</button><br>
+            </form>
+                {% if message == '' %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <span>ID:</span><input readonly name="id" value={{ id }}>
+                        <span>ИМЯ:</span><input name="name" value={{ name }}>
+                        <span>ЛОГИН:</span><input name="login" value={{ login }}>
+                        <span>ПАРОЛЬ:</span><input name="passw" value={{ passw }}>
+                        <button name="method" value="change">ИЗМЕНИТЬ</button>
+                    </form>
+                {% endif %}
+        {% elif menu == '5' %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <span>Введите ID</span><input name="id">
+                <button name="method" value="delete">УДАЛИТЬ</button>
+            </form>
+        {% endif %}
+        {{message | safe}}
+    </div>
+</body>
+</html>
